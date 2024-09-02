@@ -62,25 +62,31 @@ def upload_file(file_path, chat_id, token):
 
     return response.json()
 
-def get_chat_id(token):
+def get_chat_id(token, telegramId):
     MessageIdUrl = f"https://api.telegram.org/bot{token}/getUpdates"
+    jsonFile = requests.get(MessageIdUrl).json()
+    chatId = ""
+    for i in range(len(jsonFile["result"])):
+        if(str(jsonFile["result"][i]["message"]["from"]["id"]) == telegramId):
+            return jsonFile["result"][i]["message"]["from"]["id"]
+    else:
+        print("doesn't match")
     response = requests.get(MessageIdUrl).json()
     if not response["result"]:
         raise ValueError("No updates found")
-    return response["result"][0]["message"]["from"]["id"]
+    return chatId
 
 def main():
     parser = argparse.ArgumentParser(description="Upload a file to Telegram")
     parser.add_argument("--file_path", help="Path to the file to be uploaded")
-    parser.add_argument("--chat_id",required=True, help="your chat id")
-
+    parser.add_argument("--telegram_id",required=True, help="your telegram id")
     args = parser.parse_args()
 
     try:
         load_dotenv()
         token = os.getenv("TELEGRAM_BOT_TOKEN")
         file_path = args.file_path
-        chat_id = args.chat_id if args.chat_id else get_chat_id(token)
+        chat_id =  get_chat_id(token, args.telegram_id)
         # Upload the file
         result = upload_file(file_path, chat_id, token)
         print(result)
