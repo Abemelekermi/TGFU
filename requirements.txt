@@ -1,0 +1,5 @@
+argparse
+python-dotenv
+requests
+requests-toolbelt
+tqdm
