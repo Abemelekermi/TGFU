@@ -24,7 +24,6 @@ A simple Python application that allows you to upload files directly from the co
     ```sh
     pip install -r requirements.txt
     ```
-
 ## Usage
 
 1. **Run the application:**
