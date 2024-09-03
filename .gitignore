@@ -2,7 +2,7 @@
 .env*.local
 .env
 photo_2024-08-30_14-33-43.jpg
-tets.py
+test.py
 ss.json
 .egg-info
 build
@@ -12,3 +12,6 @@ src
 setup.py
 .venv
 dist
+main.spec
+test.spec
+tg_cli_spec
