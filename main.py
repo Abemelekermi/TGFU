@@ -70,10 +70,10 @@ def get_chat_id(token, telegramId):
         if(str(jsonFile["result"][i]["message"]["from"]["id"]) == telegramId):
             return jsonFile["result"][i]["message"]["from"]["id"]
     else:
-        print("doesn't match")
+        print("Please start the bot @TCLTBot")
     response = requests.get(MessageIdUrl).json()
     if not response["result"]:
-        raise ValueError("No updates found")
+        raise ValueError("Not found")
     return chatId
 
 def main():
@@ -83,7 +83,7 @@ def main():
     args = parser.parse_args()
     try:
         load_dotenv()
-        token = "7293927716:AAEghCmbxKrINoApW86de5SMgGtB0fAHBSk"
+        token = "telegram bot token"
         file_path = args.file_path
         chat_id =  get_chat_id(token, args.user_id)
         # Upload the file
