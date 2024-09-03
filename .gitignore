@@ -7,6 +7,7 @@ ss.json
 .egg-info
 build
 src
+.spec*.local
 .spec
 setup.py
 .venv
