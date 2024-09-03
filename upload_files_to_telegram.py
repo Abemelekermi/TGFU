@@ -32,7 +32,6 @@ def get_mime_type(file_path):
         '.wav': 'audio/wav',
         '.ogg': 'audio/ogg',
         '.flac': 'audio/flac',
-        # Add more MIME types as needed
     }
     return mime_types.get(file_extension, 'application/octet-stream')
 
@@ -41,8 +40,9 @@ def upload_file(file_path, chat_id, token):
     file_size = os.path.getsize(file_path)
 
     with open(file_path, 'rb') as file:
+        fileName = file_path.split("\\")[len(file_path.split("\\"))-1]
         # Create a MultipartEncoder to handle the file upload
-        encoder = MultipartEncoder(fields={'document': ('filename', file, mime_type)})
+        encoder = MultipartEncoder(fields={'document': (fileName, file, mime_type)})
 
         # Create a progress bar
         progress_bar = tqdm(total=file_size, unit='B', unit_scale=True, desc='Uploading')
@@ -79,17 +79,15 @@ def get_chat_id(token, telegramId):
 def main():
     parser = argparse.ArgumentParser(description="Upload a file to Telegram")
     parser.add_argument("--file_path", help="Path to the file to be uploaded")
-    parser.add_argument("--telegram_id",required=True, help="your telegram id")
+    parser.add_argument("--user_id",required=True, help="your telegram id to get your id simply use this bot https://t.me/userinfobot")
     args = parser.parse_args()
-
     try:
         load_dotenv()
-        token = os.getenv("TELEGRAM_BOT_TOKEN")
+        token = "7293927716:AAEghCmbxKrINoApW86de5SMgGtB0fAHBSk"
         file_path = args.file_path
-        chat_id =  get_chat_id(token, args.telegram_id)
+        chat_id =  get_chat_id(token, args.user_id)
         # Upload the file
-        result = upload_file(file_path, chat_id, token)
-        print(result)
+        upload_file(file_path, chat_id, token)
 
     except FileNotFoundError:
         print(f"Error: The file '{file_path}' was not found.")
