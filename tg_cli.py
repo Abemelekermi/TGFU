@@ -84,7 +84,7 @@ def main():
     args = parser.parse_args()
     try:
         load_dotenv()
-        token = "7233274206:AAG7OHDtX03KJyvRe6PNANtylEuJ9jlvtd8"
+        token = "Your_Token"
         file_path = args.file_path
         chat_id =  get_chat_id(token, args.user_id)
         # Upload the file
